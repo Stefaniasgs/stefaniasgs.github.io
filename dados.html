@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-
   <style>
     :root {
       --bg:        #F8F7F4;
@@ -22,124 +21,65 @@
       --border:    rgba(26,26,46,0.1);
       --white:     #FFFFFF;
       --shadow:    0 4px 32px rgba(26,26,46,0.08);
-      --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; overflow: hidden; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.65;
-      cursor: default;
-    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.65; }
+
+    /* PROGRESS BAR */
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.5s cubic-bezier(.4,0,.2,1); z-index: 100; box-shadow: 0 0 12px rgba(67,97,238,0.4); }
 
     /* LANG TOGGLE */
-    #lang-toggle {
-      position: fixed; top: 14px; right: 7rem;
-      z-index: 200;
-      display: flex; gap: 0.3rem;
-    }
-    .lang-btn {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
-      padding: 0.28rem 0.7rem; border-radius: 100px; cursor: pointer;
-      border: 1.5px solid var(--accent-md); background: transparent;
-      color: var(--muted); transition: all .2s; font-family: 'DM Sans', sans-serif;
-    }
+    #lang-toggle { position: fixed; top: 14px; right: 7rem; z-index: 200; display: flex; gap: 0.3rem; }
+    .lang-btn { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.28rem 0.7rem; border-radius: 100px; cursor: pointer; border: 1.5px solid var(--accent-md); background: transparent; color: var(--muted); transition: all .2s; font-family: 'DM Sans', sans-serif; }
     .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
     .lang-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
 
-    /* PROGRESS BAR */
-    #progress-bar {
-      position: fixed; top: 0; left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transition: width 0.5s cubic-bezier(.4,0,.2,1);
-      z-index: 100;
-      box-shadow: 0 0 12px rgba(67,97,238,0.4);
-    }
-
-    #slide-counter {
-      position: fixed; top: 18px; right: 2rem;
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
-      color: var(--muted); z-index: 100;
-    }
+    /* COUNTER & NAME */
+    #slide-counter { position: fixed; top: 18px; right: 2rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; color: var(--muted); z-index: 100; }
     #slide-counter span { color: var(--accent); }
-    #slide-name {
-      position: fixed; top: 16px; left: 2rem;
-      font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--muted); z-index: 100;
-    }
+    #slide-name { position: fixed; top: 16px; left: 2rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); z-index: 100; }
 
+    /* STAGE */
     #stage { width: 100%; height: 100%; position: relative; overflow: hidden; }
-    #track {
-      display: flex; width: 100%; height: 100%;
-      transition: transform 0.65s cubic-bezier(.77,0,.18,1);
-      will-change: transform;
-    }
-
-    .slide {
-      min-width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      padding: 5rem 2rem 4rem; position: relative; overflow: hidden;
-    }
+    #track { display: flex; width: 100%; height: 100%; transition: transform 0.65s cubic-bezier(.77,0,.18,1); will-change: transform; }
+    .slide { min-width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
     .slide-inner { max-width: 920px; width: 100%; position: relative; z-index: 2; }
     .slide-deco { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
 
-    .slide-tag {
-      display: inline-block; font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--accent); background: var(--accent-lt);
-      border: 1px solid var(--accent-md);
-      padding: 0.3rem 0.85rem; border-radius: 100px; margin-bottom: 1.4rem;
-    }
+    /* COMMON */
+    .slide-tag { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); background: var(--accent-lt); border: 1px solid var(--accent-md); padding: 0.3rem 0.85rem; border-radius: 100px; margin-bottom: 1.4rem; }
     h1, h2 { font-family: 'DM Serif Display', serif; color: var(--text); line-height: 1.1; }
     h1 { font-size: clamp(2.6rem, 5.5vw, 4.8rem); margin-bottom: 1rem; }
     h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1.2rem; }
     h2 em { font-style: italic; color: var(--accent); }
     p { color: var(--muted); font-size: 1rem; max-width: 580px; }
     .line { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 1.6rem; }
-
-    .btn {
-      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
-      padding: 0.75rem 1.8rem; border-radius: 6px;
-      cursor: pointer; transition: all .2s;
-      text-decoration: none; display: inline-block;
-    }
+    .btn { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.75rem 1.8rem; border-radius: 6px; cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block; }
     .btn-solid { background: var(--accent); color: #fff; border: 2px solid var(--accent); box-shadow: 0 4px 16px rgba(67,97,238,0.25); }
     .btn-solid:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-2px); }
     .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent-md); }
     .btn-outline:hover { border-color: var(--accent); background: var(--accent-lt); transform: translateY(-2px); }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .tag { font-size: 0.67rem; font-weight: 600; color: var(--accent); background: var(--accent-lt); border: 1px solid var(--accent-md); padding: 0.2rem 0.55rem; border-radius: 100px; }
 
+    /* SLIDE 1 — HERO */
     #slide-0 { background: var(--bg); }
-    #slide-0 .slide-deco {
-      width: 520px; height: 520px;
-      background: radial-gradient(circle, rgba(67,97,238,0.07) 0%, transparent 70%);
-      right: -80px; top: 50%; transform: translateY(-50%);
-    }
+    #slide-0 .slide-deco { width: 520px; height: 520px; background: radial-gradient(circle, rgba(67,97,238,0.07) 0%, transparent 70%); right: -80px; top: 50%; transform: translateY(-50%); }
     .hero-name { font-size: clamp(2.8rem, 6vw, 5rem); font-family: 'DM Serif Display', serif; line-height: 1.05; margin-bottom: 0.8rem; }
     .hero-name span { color: var(--accent); font-style: italic; }
     .hero-role { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 1rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
     .hero-stats { display: flex; gap: 2.5rem; margin-top: 2rem; flex-wrap: wrap; }
     .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
     .hero-stat-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
 
+    /* SLIDE 2 — ABOUT */
     #slide-1 { background: var(--white); }
     #slide-1 .slide-deco { width: 300px; height: 300px; background: radial-gradient(circle, rgba(67,97,238,0.05) 0%, transparent 70%); left: -60px; bottom: -60px; }
-    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .sobre-img-box { width: 100%; aspect-ratio: 4/3; background: var(--bg2); border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem; overflow: hidden; position: relative; }
-    .sobre-img-box svg { width: 48px; height: 48px; opacity: 0.2; }
-    .sobre-img-placeholder { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; opacity: 0.6; }
-    .sobre-accent-box { position: absolute; bottom: -16px; right: -16px; background: var(--accent); color: #fff; padding: 0.85rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: var(--shadow); line-height: 1.3; }
-    .sobre-accent-box span { font-size: 1.5rem; font-family: 'DM Serif Display', serif; display: block; }
-    .sobre-img-wrap { position: relative; }
-    .sobre-text p { margin-bottom: 1rem; }
+    .sobre-text p { margin-bottom: 1rem; max-width: 640px; }
     .sobre-text p strong { color: var(--text); }
 
+    /* SLIDE 3 — SKILLS */
     #slide-2 { background: var(--bg); }
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 0.5rem; }
     .skill-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.4rem; transition: transform .2s, box-shadow .2s, border-color .2s; }
@@ -151,23 +91,10 @@
     .skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transform-origin: left; animation: grow 1s ease both; }
     @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+    /* SLIDE 4 — CERTIFICATIONS */
     #slide-3 { background: var(--white); }
-    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
-    .project-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; }
-    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-    .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent-md); }
-    .project-card:hover::after { transform: scaleX(1); }
-    .project-emoji { font-size: 1.5rem; margin-bottom: 0.6rem; }
-    .project-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 0.35rem; }
-    .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; max-width: none; margin-bottom: 0.9rem; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .tag { font-size: 0.67rem; font-weight: 600; color: var(--accent); background: var(--accent-lt); border: 1px solid var(--accent-md); padding: 0.2rem 0.55rem; border-radius: 100px; }
-    .project-link { position: absolute; top: 1.1rem; right: 1.1rem; font-size: 0.7rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .project-link:hover { color: var(--accent); }
-
-    #slide-4 { background: var(--bg); }
     .certs-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-    .cert-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.4rem; display: flex; gap: 0.9rem; align-items: flex-start; transition: border-color .2s, box-shadow .2s; }
+    .cert-item { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.4rem; display: flex; gap: 0.9rem; align-items: flex-start; transition: border-color .2s, box-shadow .2s; }
     .cert-item:hover { border-color: var(--accent-md); box-shadow: var(--shadow); }
     .cert-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
     .cert-issuer { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
@@ -176,17 +103,63 @@
     .cert-verify { font-size: 0.7rem; color: var(--muted); text-decoration: none; transition: color .2s; display: inline-block; margin-top: 0.3rem; }
     .cert-verify:hover { color: var(--accent); }
 
+    /* SLIDE 5 — PROJECTS */
+    #slide-4 { background: var(--bg); }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
+    .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+    .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent-md); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-emoji { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .project-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 0.35rem; }
+    .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; max-width: none; margin-bottom: 0.9rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .project-link { position: absolute; top: 1.1rem; right: 1.1rem; font-size: 0.7rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .project-link:hover { color: var(--accent); }
+
+    /* SLIDE 6 — DASHBOARD PREVIEW */
     #slide-5 { background: var(--white); }
-    #slide-5 .slide-deco { width: 480px; height: 480px; background: radial-gradient(circle, rgba(67,97,238,0.06) 0%, transparent 70%); right: -100px; top: 50%; transform: translateY(-50%); }
+    .dashboard-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: center; margin-top: 0.5rem; }
+    .dashboard-img-wrap { border-radius: 14px; overflow: hidden; box-shadow: 0 8px 40px rgba(26,26,46,0.15); border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; }
+    .dashboard-img-wrap:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 16px 56px rgba(26,26,46,0.2); }
+    .dashboard-img { width: 100%; display: block; border-radius: 14px; }
+    .dashboard-desc { display: flex; flex-direction: column; gap: 0.9rem; }
+    .dashboard-title { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--text); line-height: 1.3; }
+    .dashboard-text { font-size: 0.85rem; color: var(--muted); line-height: 1.65; max-width: none; }
+    .dashboard-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.25rem; }
+
+    /* SLIDES 7 & 8 — PYTHON SCRIPTS */
+    #slide-6 { background: var(--bg); }
+    #slide-7 { background: var(--white); }
+    .script-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; align-items: start; margin-top: 0.5rem; }
+    .script-imgs { display: flex; flex-direction: column; gap: 1rem; }
+    .code-img-wrap { border-radius: 12px; overflow: hidden; box-shadow: 0 6px 32px rgba(26,26,46,0.12); border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; }
+    .code-img-wrap:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(26,26,46,0.18); }
+    .code-img-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); background: var(--accent-lt); border-bottom: 1px solid var(--accent-md); padding: 0.45rem 1rem; }
+    .code-img { width: 100%; display: block; }
+    .script-desc { display: flex; flex-direction: column; gap: 0.85rem; }
+    .script-title { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--text); line-height: 1.3; }
+    .script-text { font-size: 0.83rem; color: var(--muted); line-height: 1.65; max-width: none; }
+    .pipeline-steps { display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.5rem; }
+    .pipeline-step { display: flex; align-items: center; gap: 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.55rem 1rem; transition: border-color .2s; }
+    .pipeline-step:hover { border-color: var(--accent-md); }
+    .step-num { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--accent); font-weight: 700; min-width: 24px; }
+    .step-label { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+    .pipeline-arrow { font-size: 0.75rem; color: var(--accent); opacity: 0.4; padding-left: 1.2rem; line-height: 1; }
+
+    /* SLIDE 9 — CONTACT */
+    #slide-8 { background: var(--bg); }
+    #slide-8 .slide-deco { width: 480px; height: 480px; background: radial-gradient(circle, rgba(67,97,238,0.06) 0%, transparent 70%); right: -100px; top: 50%; transform: translateY(-50%); }
     .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
     .contact-items { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 0.5rem; }
-    .contact-item { display: flex; align-items: center; gap: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.2rem; text-decoration: none; color: var(--text); transition: border-color .2s, box-shadow .2s, transform .2s; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.2rem; text-decoration: none; color: var(--text); transition: border-color .2s, box-shadow .2s, transform .2s; }
     .contact-item:hover { border-color: var(--accent-md); box-shadow: var(--shadow); transform: translateX(4px); }
     .contact-icon { width: 36px; height: 36px; background: var(--accent-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .contact-icon svg { width: 17px; height: 17px; fill: none; stroke: var(--accent); stroke-width: 2; }
     .contact-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.1rem; }
     .contact-value { font-weight: 600; font-size: 0.88rem; color: var(--text); }
 
+    /* ARROWS */
     .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; background: var(--white); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 50; transition: all .2s; box-shadow: var(--shadow); user-select: none; }
     .nav-arrow:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 4px 20px rgba(67,97,238,0.3); }
     .nav-arrow:hover svg { stroke: #fff; }
@@ -195,17 +168,20 @@
     #btn-next { right: 1.5rem; }
     .nav-arrow.hidden { opacity: 0; pointer-events: none; }
 
+    /* KEY HINT */
     #key-hint { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; opacity: 0.6; pointer-events: none; transition: opacity 0.5s; }
     #key-hint.hide { opacity: 0; }
 
+    /* ANIMATION */
     .slide-inner { animation: slideIn 0.5s cubic-bezier(.4,0,.2,1) both; }
     @keyframes slideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .sobre-grid, .contato-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contato-grid { grid-template-columns: 1fr; gap: 2rem; }
       .skills-grid { grid-template-columns: repeat(2, 1fr); }
       .projects-grid, .certs-list { grid-template-columns: 1fr; }
-      .sobre-img-wrap { display: none; }
+      .dashboard-layout, .script-layout { grid-template-columns: 1fr; gap: 1.5rem; }
     }
     @media (max-width: 480px) {
       .skills-grid { grid-template-columns: 1fr; }
@@ -218,14 +194,11 @@
 
 <div id="progress-bar"></div>
 <div id="slide-name">Portfolio</div>
-<div id="slide-counter"><span id="cur">1</span> / <span id="tot">6</span></div>
-
-<!-- LANG TOGGLE -->
+<div id="slide-counter"><span id="cur">1</span> / <span id="tot">9</span></div>
 <div id="lang-toggle">
   <button class="lang-btn active" onclick="setLang('en')">EN</button>
   <button class="lang-btn" onclick="setLang('pt')">PT</button>
 </div>
-
 <div id="key-hint" data-en="← → arrow keys to navigate" data-pt="← → setas do teclado para navegar">← → arrow keys to navigate</div>
 
 <div id="stage">
@@ -242,12 +215,13 @@
         </h1>
         <p class="hero-role">Computer Science · SQL · Python · Power BI · Tableau</p>
         <div class="line"></div>
-        <p data-en="I turn data into decisions — with focus on clear visualization, interactive dashboards and storytelling that supports decision-making." data-pt="Transformo dados em decisões — com foco em visualização clara, dashboards interativos e storytelling que apoia a tomada de decisão.">
+        <p data-en="I turn data into decisions — with focus on clear visualization, interactive dashboards and storytelling that supports decision-making."
+           data-pt="Transformo dados em decisões — com foco em visualização clara, dashboards interativos e storytelling que apoia a tomada de decisão.">
           I turn data into decisions — with focus on clear visualization, interactive dashboards and storytelling that supports decision-making.
         </p>
         <div class="hero-cta">
-          <a href="#" class="btn btn-solid" onclick="goTo(3); return false;" data-en="View Projects" data-pt="Ver Projetos">View Projects</a>
-          <a href="#" class="btn btn-outline" onclick="goTo(5); return false;" data-en="Contact" data-pt="Contato">Contact</a>
+          <a href="#" class="btn btn-solid" onclick="goTo(4); return false;" data-en="View Projects" data-pt="Ver Projetos">View Projects</a>
+          <a href="#" class="btn btn-outline" onclick="goTo(8); return false;" data-en="Contact" data-pt="Contato">Contact</a>
         </div>
         <div class="hero-stats">
           <div>
@@ -255,8 +229,8 @@
             <div class="hero-stat-label" data-en="Certifications" data-pt="Certificações">Certifications</div>
           </div>
           <div>
-            <div class="hero-stat-num">1+</div>
-            <div class="hero-stat-label" data-en="Project Delivered" data-pt="Projeto Entregue">Project Delivered</div>
+            <div class="hero-stat-num">2+</div>
+            <div class="hero-stat-label" data-en="Projects" data-pt="Projetos">Projects</div>
           </div>
           <div>
             <div class="hero-stat-num">360h+</div>
@@ -270,32 +244,21 @@
     <div class="slide" id="slide-1" data-name-en="About" data-name-pt="Sobre Mim">
       <div class="slide-deco"></div>
       <div class="slide-inner">
-        <div class="sobre-grid">
-          <div class="sobre-text">
-            <div class="slide-tag" data-en="About Me" data-pt="Sobre Mim">About Me</div>
-            <h2><span data-en="Who am " data-pt="Quem sou ">Who am </span><em data-en="I?" data-pt="eu?">I?</em></h2>
-            <div class="line"></div>
-            <p data-en="I'm <strong>Stefania Silva Guedes</strong>, a <strong>Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong>SQL/MySQL</strong> for queries and relational database management, and use <strong>Python</strong> for data processing and automation."
-               data-pt="Sou <strong>Stefania Silva Guedes</strong>, estudante de <strong>Ciência da Computação</strong> na UNIP com foco em Análise de Dados. Tenho habilidades técnicas com <strong>SQL/MySQL</strong> para consultas e manipulação de bases relacionais, e uso <strong>Python</strong> para tratamento e automação de dados.">
-              I'm <strong>Stefania Silva Guedes</strong>, a <strong>Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong>SQL/MySQL</strong> for queries and relational database management, and use <strong>Python</strong> for data processing and automation.
-            </p>
-            <p data-en="I enjoy creating <strong>dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong>Git and GitHub</strong>."
-               data-pt="Gosto de criar <strong>dashboards</strong> que ajudem a visualizar informações de forma clara e útil, e mantenho boas práticas de documentação e versionamento com <strong>Git e GitHub</strong>.">
-              I enjoy creating <strong>dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong>Git and GitHub</strong>.
-            </p>
-            <p data-en="Based in <strong>Franca – SP, Brazil</strong>." data-pt="Localizada em <strong>Franca – SP</strong>.">Based in <strong>Franca – SP, Brazil</strong>.</p>
-          </div>
-          <div class="sobre-img-wrap">
-            <div class="sobre-img-box">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#4361EE" stroke-width="1">
-                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-              </svg>
-              <span class="sobre-img-placeholder">← Add your photo here</span>
-            </div>
-            <div class="sobre-accent-box">
-              <span>360h+</span><span data-en="in data courses" data-pt="em cursos de dados">in data courses</span>
-            </div>
-          </div>
+        <div class="sobre-text">
+          <div class="slide-tag" data-en="About Me" data-pt="Sobre Mim">About Me</div>
+          <h2><span data-en="Who am " data-pt="Quem sou ">Who am </span><em data-en="I?" data-pt="eu?">I?</em></h2>
+          <div class="line"></div>
+          <p data-en="I'm <strong style='color:var(--text)'>Stefania Silva Guedes</strong>, a <strong style='color:var(--text)'>Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong style='color:var(--text)'>SQL/MySQL</strong> for queries and relational database management, and use <strong style='color:var(--text)'>Python</strong> for data processing and automation."
+             data-pt="Sou <strong style='color:var(--text)'>Stefania Silva Guedes</strong>, estudante de <strong style='color:var(--text)'>Ciência da Computação</strong> na UNIP com foco em Análise de Dados. Tenho habilidades técnicas com <strong style='color:var(--text)'>SQL/MySQL</strong> para consultas e manipulação de bases relacionais, e uso <strong style='color:var(--text)'>Python</strong> para tratamento e automação de dados.">
+            I'm <strong style="color:var(--text)">Stefania Silva Guedes</strong>, a <strong style="color:var(--text)">Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong style="color:var(--text)">SQL/MySQL</strong> for queries and relational database management, and use <strong style="color:var(--text)">Python</strong> for data processing and automation.
+          </p>
+          <p data-en="I enjoy creating <strong style='color:var(--text)'>dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong style='color:var(--text)'>Git and GitHub</strong>."
+             data-pt="Gosto de criar <strong style='color:var(--text)'>dashboards</strong> que ajudem a visualizar informações de forma clara e útil, e mantenho boas práticas de documentação e versionamento com <strong style='color:var(--text)'>Git e GitHub</strong>.">
+            I enjoy creating <strong style="color:var(--text)">dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong style="color:var(--text)">Git and GitHub</strong>.
+          </p>
+          <p data-en="Based in <strong style='color:var(--text)'>Franca – SP, Brazil</strong>." data-pt="Localizada em <strong style='color:var(--text)'>Franca – SP</strong>.">
+            Based in <strong style="color:var(--text)">Franca – SP, Brazil</strong>.
+          </p>
         </div>
       </div>
     </div>
@@ -347,81 +310,8 @@
       </div>
     </div>
 
-    <!-- SLIDE 4 — PROJECTS -->
-    <div class="slide" id="slide-3" data-name-en="Projects" data-name-pt="Projetos">
-      <div class="slide-inner">
-        <div class="slide-tag" data-en="Portfolio" data-pt="Portfólio">Portfolio</div>
-        <h2><span data-en="Featured " data-pt="Projetos em ">Featured </span><em data-en="projects" data-pt="destaque">projects</em></h2>
-        <div class="line"></div>
-        <div class="projects-grid">
-          <div class="project-card">
-            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="project-link">GitHub ↗</a>
-            <div class="project-emoji">💻</div>
-            <div class="project-title" data-en="IT Department Cost Dashboard" data-pt="Dashboard de Custos do Setor de TI">IT Department Cost Dashboard</div>
-            <div class="project-desc"
-              data-en="Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization before visualization."
-              data-pt="Dashboard interativo em Power BI para análise dos custos operacionais de um departamento de TI — materiais, licenças, profissionais e manutenção. Inclui pipeline de dados em Python com Pandas para limpeza, validação e padronização antes da visualização.">
-              Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization before visualization.
-            </div>
-            <div class="project-tags">
-              <span class="tag">Power BI</span>
-              <span class="tag">Python</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">DAX</span>
-              <span class="tag">ETL</span>
-            </div>
-          </div>
-          <div class="project-card">
-            <a href="https://github.com/Stefaniasgs/SEU_REPO_SQL" target="_blank" class="project-link">GitHub ↗</a>
-            <div class="project-emoji">🗃️</div>
-            <div class="project-title" data-en="Data Analysis with SQL" data-pt="Análise de Dados com SQL">Data Analysis with SQL</div>
-            <div class="project-desc"
-              data-en="Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases."
-              data-pt="Consultas avançadas em MySQL com JOINs, Subqueries e Views para extração, limpeza e geração de relatórios a partir de bases relacionais.">
-              Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases.
-            </div>
-            <div class="project-tags">
-              <span class="tag">SQL</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">Data Cleaning</span>
-            </div>
-          </div>
-          <div class="project-card">
-            <a href="https://github.com/Stefaniasgs/SEU_REPO_PYTHON" target="_blank" class="project-link">GitHub ↗</a>
-            <div class="project-emoji">🐍</div>
-            <div class="project-title" data-en="Data Processing & Automation · Python" data-pt="Automação e Tratamento de Dados · Python">Data Processing & Automation · Python</div>
-            <div class="project-desc"
-              data-en="Python scripts with Pandas and NumPy for data cleaning, transformation and automation of data analysis routines."
-              data-pt="Scripts em Python com Pandas e NumPy para limpeza, transformação e automação de rotinas de análise de dados.">
-              Python scripts with Pandas and NumPy for data cleaning, transformation and automation of data analysis routines.
-            </div>
-            <div class="project-tags">
-              <span class="tag">Python</span>
-              <span class="tag">Pandas</span>
-              <span class="tag">NumPy</span>
-            </div>
-          </div>
-          <div class="project-card">
-            <a href="https://github.com/Stefaniasgs/SEU_REPO_TABLEAU" target="_blank" class="project-link">GitHub ↗</a>
-            <div class="project-emoji">📊</div>
-            <div class="project-title" data-en="Analytics Dashboard · Tableau" data-pt="Dashboard de Análise · Tableau">Analytics Dashboard · Tableau</div>
-            <div class="project-desc"
-              data-en="Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making."
-              data-pt="Visualização interativa de dados em Tableau com análise estatística e storytelling para suporte à tomada de decisão.">
-              Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making.
-            </div>
-            <div class="project-tags">
-              <span class="tag">Tableau</span>
-              <span class="tag">Visualization</span>
-              <span class="tag">Storytelling</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 5 — CERTIFICATIONS -->
-    <div class="slide" id="slide-4" data-name-en="Certifications" data-name-pt="Certificações">
+    <!-- SLIDE 4 — CERTIFICATIONS -->
+    <div class="slide" id="slide-3" data-name-en="Certifications" data-name-pt="Certificações">
       <div class="slide-inner">
         <div class="slide-tag" data-en="Education" data-pt="Formação">Education</div>
         <h2><span data-en="Certifications &amp; " data-pt="Certificações &amp; ">Certifications &amp; </span><em data-en="Courses" data-pt="Cursos">Courses</em></h2>
@@ -433,6 +323,7 @@
               <div class="cert-issuer">Cisco Networking Academy</div>
               <div class="cert-name">Data Analytics Essentials</div>
               <div class="cert-detail">Excel · SQL · Tableau · Statistical Analysis</div>
+              <!-- ← Cole aqui o link de verificação -->
               <a href="SEU_LINK_VERIFICACAO_CISCO_DATA" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
             </div>
           </div>
@@ -442,6 +333,7 @@
               <div class="cert-issuer">Microsoft · Power BI</div>
               <div class="cert-name" data-en="Advanced Excel & Power BI" data-pt="Excel Avançado & Power BI">Advanced Excel & Power BI</div>
               <div class="cert-detail">Dashboards · DAX · Power Query · ETL · KPIs</div>
+              <!-- ← Cole aqui o link de verificação -->
               <a href="SEU_LINK_VERIFICACAO_POWERBI" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
             </div>
           </div>
@@ -451,6 +343,7 @@
               <div class="cert-issuer">Curso em Vídeo · Prof. Guanabara</div>
               <div class="cert-name">Python 3 (Worlds 1–4)</div>
               <div class="cert-detail" data-en="160 hours · Logic, data structures, automation" data-pt="160 horas · Lógica, estruturas de dados, automação">160 hours · Logic, data structures, automation</div>
+              <!-- ← Cole aqui o link de verificação -->
               <a href="SEU_LINK_VERIFICACAO_PYTHON" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
             </div>
           </div>
@@ -460,6 +353,7 @@
               <div class="cert-issuer">Udemy / Alura</div>
               <div class="cert-name" data-en="SQL for Data Analysis · MySQL" data-pt="SQL para Análise de Dados · MySQL">SQL for Data Analysis · MySQL</div>
               <div class="cert-detail">JOINs · Subqueries · Views · Aggregation Functions</div>
+              <!-- ← Cole aqui o link de verificação -->
               <a href="SEU_LINK_VERIFICACAO_SQL" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
             </div>
           </div>
@@ -469,7 +363,7 @@
               <div class="cert-issuer">UNIP</div>
               <div class="cert-name" data-en="Computer Science" data-pt="Ciência da Computação">Computer Science</div>
               <div class="cert-detail" data-en="Undergraduate · In progress · Franca – SP" data-pt="Graduação em andamento · Franca – SP">Undergraduate · In progress · Franca – SP</div>
-              <a href="#" class="cert-verify" style="pointer-events:none; opacity:0.4;" data-en="In progress" data-pt="Em andamento">In progress</a>
+              <a href="#" class="cert-verify" style="pointer-events:none;opacity:0.4;" data-en="In progress" data-pt="Em andamento">In progress</a>
             </div>
           </div>
           <div class="cert-item">
@@ -478,6 +372,7 @@
               <div class="cert-issuer">Curso em Vídeo · DIO</div>
               <div class="cert-name">Git & GitHub</div>
               <div class="cert-detail" data-en="Versioning, organization and repository documentation" data-pt="Versionamento, organização e documentação de repositórios">Versioning, organization and repository documentation</div>
+              <!-- ← Cole aqui o link de verificação -->
               <a href="SEU_LINK_VERIFICACAO_GIT" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
             </div>
           </div>
@@ -485,8 +380,189 @@
       </div>
     </div>
 
-    <!-- SLIDE 6 — CONTACT -->
-    <div class="slide" id="slide-5" data-name-en="Contact" data-name-pt="Contato">
+    <!-- SLIDE 5 — PROJECTS -->
+    <div class="slide" id="slide-4" data-name-en="Projects" data-name-pt="Projetos">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Portfolio" data-pt="Portfólio">Portfolio</div>
+        <h2><span data-en="Featured " data-pt="Projetos em ">Featured </span><em data-en="projects" data-pt="destaque">projects</em></h2>
+        <div class="line"></div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">💻</div>
+            <div class="project-title" data-en="IT Department Cost Dashboard" data-pt="Dashboard de Custos do Setor de TI">IT Department Cost Dashboard</div>
+            <div class="project-desc"
+              data-en="Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization."
+              data-pt="Dashboard interativo em Power BI para análise dos custos operacionais de TI — materiais, licenças, profissionais e manutenção. Inclui pipeline de dados em Python com Pandas para limpeza, validação e padronização.">
+              Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">DAX</span><span class="tag">ETL</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_REPORT" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">📄</div>
+            <div class="project-title" data-en="HTML Security Report Generator" data-pt="Gerador de Relatório de Segurança HTML">HTML Security Report Generator</div>
+            <div class="project-desc"
+              data-en="Automates security report generation with pure Python — no external templates. Calculates SOC KPIs: TTD and TTR with Pandas. HTML output built with f-strings and CSS charts. Zero dependencies beyond the data stack."
+              data-pt="Automatiza geração de relatórios de segurança com Python puro — sem templates externos. Calcula KPIs de SOC: TTD e TTR com Pandas. HTML gerado com f-strings e gráficos em CSS puro. Zero dependências além do stack de dados.">
+              Automates security report generation with pure Python — no external templates. Calculates SOC KPIs: TTD and TTR with Pandas. HTML output built with f-strings and CSS charts. Zero dependencies beyond the data stack.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">HTML·CSS</span><span class="tag">SOC·KPIs</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_SQL" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">🗃️</div>
+            <div class="project-title" data-en="Data Analysis with SQL" data-pt="Análise de Dados com SQL">Data Analysis with SQL</div>
+            <div class="project-desc"
+              data-en="Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases."
+              data-pt="Consultas avançadas em MySQL com JOINs, Subqueries e Views para extração, limpeza e geração de relatórios a partir de bases relacionais.">
+              Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases.
+            </div>
+            <div class="project-tags">
+              <span class="tag">SQL</span><span class="tag">MySQL</span><span class="tag">Data Cleaning</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_TABLEAU" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">📊</div>
+            <div class="project-title" data-en="Analytics Dashboard · Tableau" data-pt="Dashboard de Análise · Tableau">Analytics Dashboard · Tableau</div>
+            <div class="project-desc"
+              data-en="Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making."
+              data-pt="Visualização interativa de dados em Tableau com análise estatística e storytelling para suporte à tomada de decisão.">
+              Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Tableau</span><span class="tag">Visualization</span><span class="tag">Storytelling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 — DASHBOARD PREVIEW -->
+    <div class="slide" id="slide-5" data-name-en="Dashboard" data-name-pt="Dashboard">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Featured Project" data-pt="Projeto em Destaque">Featured Project</div>
+        <h2><em data-en="IT Cost" data-pt="Custos TI">IT Cost</em> <span data-en="Dashboard" data-pt="Dashboard">Dashboard</span></h2>
+        <div class="line"></div>
+        <div class="dashboard-layout">
+          <div class="dashboard-img-wrap">
+            <img src="imagens/dashboard_ti.png" alt="Dashboard de Custos do Setor de TI" class="dashboard-img"/>
+          </div>
+          <div class="dashboard-desc">
+            <div class="dashboard-title" data-en="IT Department Cost Dashboard" data-pt="Dashboard de Custos do Setor de TI">IT Department Cost Dashboard</div>
+            <p class="dashboard-text" data-en="Interactive Power BI dashboard for analyzing the operational costs of an IT department, covering categories such as materials, software licenses, professionals and maintenance." data-pt="Dashboard interativo em Power BI para análise dos custos operacionais de um departamento de TI, cobrindo categorias como materiais, licenças de software, profissionais e manutenção.">
+              Interactive Power BI dashboard for analyzing the operational costs of an IT department, covering categories such as materials, software licenses, professionals and maintenance.
+            </p>
+            <p class="dashboard-text" data-en="The project includes a complete data pipeline — raw data is processed and validated in Python before being loaded into Power BI, where KPIs, charts and summary tables provide a clear overview of spending patterns across departments and months." data-pt="O projeto inclui um pipeline de dados completo — os dados brutos são processados e validados em Python antes de serem carregados no Power BI, onde KPIs, gráficos e tabelas resumidas oferecem uma visão clara dos padrões de gastos por departamento e mês.">
+              The project includes a complete data pipeline — raw data is processed and validated in Python before being loaded into Power BI, where KPIs, charts and summary tables provide a clear overview of spending patterns across departments and months.
+            </p>
+            <div class="dashboard-tags">
+              <span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">DAX</span><span class="tag">ETL</span><span class="tag">KPIs</span><span class="tag">Data Pipeline</span>
+            </div>
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7 — DATA CLEANING SCRIPT -->
+    <div class="slide" id="slide-6" data-name-en="Data Cleaning" data-name-pt="Script Limpeza">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Data Pipeline · Python" data-pt="Pipeline de Dados · Python">Data Pipeline · Python</div>
+        <h2><em data-en="Data Cleaning" data-pt="Limpeza de Dados">Data Cleaning</em> <span data-en="Script" data-pt="Script">Script</span></h2>
+        <div class="line"></div>
+        <div class="script-layout">
+          <div class="script-imgs">
+            <div class="code-img-wrap">
+              <div class="code-img-label">01 · Imports &amp; Config</div>
+              <img src="imagens/script_python_1.png" alt="Script Python - Imports e configuração" class="code-img"/>
+            </div>
+            <div class="code-img-wrap">
+              <div class="code-img-label">02 · Pipeline Execution</div>
+              <img src="imagens/script_python_2.png" alt="Script Python - Execução do pipeline" class="code-img"/>
+            </div>
+          </div>
+          <div class="script-desc">
+            <div class="script-title" data-en="Data Cleaning Script · Python" data-pt="Script de Limpeza de Dados · Python">Data Cleaning Script · Python</div>
+            <p class="script-text" data-en="Python script responsible for the data treatment stage of the IT Cost Dashboard project. Loads the raw Excel file, checks for null values, corrects data types, standardizes text fields, validates financial values and removes duplicates." data-pt="Script Python responsável pela etapa de tratamento de dados do projeto Dashboard de Custos de TI. Carrega o arquivo Excel bruto, verifica valores nulos, corrige tipos de dados, padroniza campos de texto, valida valores financeiros e remove duplicatas.">
+              Python script responsible for the data treatment stage of the IT Cost Dashboard project. Loads the raw Excel file, checks for null values, corrects data types, standardizes text fields, validates financial values and removes duplicates.
+            </p>
+            <p class="script-text" data-en="Each step is logged to the terminal, making the pipeline transparent and easy to audit." data-pt="Cada etapa é registrada no terminal, tornando o pipeline transparente e fácil de auditar.">
+              Each step is logged to the terminal, making the pipeline transparent and easy to audit.
+            </p>
+            <div class="pipeline-steps">
+              <div class="pipeline-step"><span class="step-num">01</span><span class="step-label" data-en="Load raw Excel file" data-pt="Carregar arquivo Excel bruto">Load raw Excel file</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">02</span><span class="step-label" data-en="Check nulls &amp; fix types" data-pt="Verificar nulos e corrigir tipos">Check nulls &amp; fix types</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">03</span><span class="step-label" data-en="Standardize &amp; validate" data-pt="Padronizar e validar">Standardize &amp; validate</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">04</span><span class="step-label" data-en="Remove duplicates &amp; export" data-pt="Remover duplicatas e exportar">Remove duplicates &amp; export</span></div>
+            </div>
+            <div class="dashboard-tags" style="margin-top:1rem;">
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Excel·XLSX</span><span class="tag">Data Cleaning</span><span class="tag">ETL</span>
+            </div>
+            <!-- ← Troque pelo link do repositório -->
+            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8 — HTML REPORT GENERATOR -->
+    <div class="slide" id="slide-7" data-name-en="Report Generator" data-name-pt="Gerador de Relatório">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Project · Python" data-pt="Projeto · Python">Project · Python</div>
+        <h2><em data-en="HTML Report" data-pt="Relatório HTML">HTML Report</em> <span data-en="Generator" data-pt="Gerador">Generator</span></h2>
+        <div class="line"></div>
+        <div class="script-layout">
+          <div class="script-imgs">
+            <div class="code-img-wrap">
+              <div class="code-img-label">01 · Incident Data Generation</div>
+              <img src="imagens/script_report_1.png" alt="Script - Geração de dados de incidentes" class="code-img"/>
+            </div>
+            <div class="code-img-wrap">
+              <div class="code-img-label">02 · KPI Calculation</div>
+              <img src="imagens/script_report_2.png" alt="Script - Cálculo de KPIs" class="code-img"/>
+            </div>
+          </div>
+          <div class="script-desc">
+            <div class="script-title" data-en="HTML Security Report Generator" data-pt="Gerador de Relatório de Segurança HTML">HTML Security Report Generator</div>
+            <p class="script-text" data-en="Automates the generation of security reports with pure Python — no external templates. Calculates real SOC KPIs: TTD (Time to Detect) and TTR (Time to Resolve) using Pandas. TTR ignores still-open cases to avoid statistical distortion." data-pt="Automatiza a geração de relatórios de segurança com Python puro — sem templates externos. Calcula KPIs reais de SOC: TTD (Time to Detect) e TTR (Time to Resolve) com Pandas. O TTR ignora casos ainda abertos para evitar distorção estatística.">
+              Automates the generation of security reports with pure Python — no external templates. Calculates real SOC KPIs: TTD (Time to Detect) and TTR (Time to Resolve) using Pandas. TTR ignores still-open cases to avoid statistical distortion.
+            </p>
+            <p class="script-text" data-en="The HTML output is generated with f-strings and the trend chart is built in pure CSS — zero dependencies beyond the data stack. Opens in any browser." data-pt="O HTML é gerado com f-strings e o gráfico de tendência é construído em CSS puro — zero dependências além do stack de dados. Abre em qualquer navegador.">
+              The HTML output is generated with f-strings and the trend chart is built in pure CSS — zero dependencies beyond the data stack. Opens in any browser.
+            </p>
+            <div class="pipeline-steps">
+              <div class="pipeline-step"><span class="step-num">01</span><span class="step-label" data-en="Generate synthetic incident data" data-pt="Gerar dados sintéticos de incidentes">Generate synthetic incident data</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">02</span><span class="step-label" data-en="Calculate SOC KPIs (TTD, TTR, resolve rate)" data-pt="Calcular KPIs de SOC (TTD, TTR, taxa de resolução)">Calculate SOC KPIs (TTD, TTR, resolve rate)</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">03</span><span class="step-label" data-en="Render HTML report with CSS charts" data-pt="Renderizar relatório HTML com gráficos em CSS">Render HTML report with CSS charts</span></div>
+            </div>
+            <div class="dashboard-tags" style="margin-top:1rem;">
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">HTML·CSS</span><span class="tag">SOC·KPIs</span><span class="tag">Zero Dependencies</span>
+            </div>
+            <!-- ← Troque pelo link do repositório quando publicar -->
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_REPORT_GENERATOR" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9 — CONTACT -->
+    <div class="slide" id="slide-8" data-name-en="Contact" data-name-pt="Contato">
       <div class="slide-deco"></div>
       <div class="slide-inner">
         <div class="contato-grid">
@@ -501,39 +577,27 @@
           <div class="contact-items">
             <a href="mailto:stefaniasilva0000@gmail.com" class="contact-item">
               <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
-              <div>
-                <div class="contact-label">E-mail</div>
-                <div class="contact-value">stefaniasilva0000@gmail.com</div>
-              </div>
+              <div><div class="contact-label">E-mail</div><div class="contact-value">stefaniasilva0000@gmail.com</div></div>
             </a>
             <a href="https://www.linkedin.com/in/stefania-silva-aa84983a5" target="_blank" class="contact-item">
               <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4V9h4v1.5"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
-              <div>
-                <div class="contact-label">LinkedIn</div>
-                <div class="contact-value">stefania-silva-aa84983a5</div>
-              </div>
+              <div><div class="contact-label">LinkedIn</div><div class="contact-value">stefania-silva-aa84983a5</div></div>
             </a>
             <a href="https://github.com/Stefaniasgs" target="_blank" class="contact-item">
               <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
-              <div>
-                <div class="contact-label">GitHub</div>
-                <div class="contact-value">github.com/Stefaniasgs</div>
-              </div>
+              <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/Stefaniasgs</div></div>
             </a>
             <a href="tel:+5516992877786" class="contact-item">
               <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.17-1.17a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 14.92v2z"/></svg></div>
-              <div>
-                <div class="contact-label" data-en="Phone" data-pt="Telefone">Phone</div>
-                <div class="contact-value">(16) 99287-7786</div>
-              </div>
+              <div><div class="contact-label" data-en="Phone" data-pt="Telefone">Phone</div><div class="contact-value">(16) 99287-7786</div></div>
             </a>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- /track -->
+</div><!-- /stage -->
 
 <button class="nav-arrow hidden" id="btn-prev" aria-label="Previous slide">
   <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
