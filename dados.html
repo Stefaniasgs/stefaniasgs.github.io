@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stefania Guedes · Data Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg:        #F8F7F4;
+      --bg2:       #F0EDE6;
+      --bg3:       #E8E3DA;
+      --text:      #1A1A2E;
+      --muted:     #6B6B85;
+      --accent:    #4361EE;
+      --accent2:   #3A0CA3;
+      --accent-lt: rgba(67,97,238,0.08);
+      --accent-md: rgba(67,97,238,0.18);
+      --border:    rgba(26,26,46,0.1);
+      --white:     #FFFFFF;
+      --shadow:    0 4px 32px rgba(26,26,46,0.08);
+      --shadow-lg: 0 12px 48px rgba(26,26,46,0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      cursor: default;
+    }
+
+    /* LANG TOGGLE */
+    #lang-toggle {
+      position: fixed; top: 14px; right: 7rem;
+      z-index: 200;
+      display: flex; gap: 0.3rem;
+    }
+    .lang-btn {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      padding: 0.28rem 0.7rem; border-radius: 100px; cursor: pointer;
+      border: 1.5px solid var(--accent-md); background: transparent;
+      color: var(--muted); transition: all .2s; font-family: 'DM Sans', sans-serif;
+    }
+    .lang-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .lang-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+
+    /* PROGRESS BAR */
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.5s cubic-bezier(.4,0,.2,1);
+      z-index: 100;
+      box-shadow: 0 0 12px rgba(67,97,238,0.4);
+    }
+
+    #slide-counter {
+      position: fixed; top: 18px; right: 2rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      color: var(--muted); z-index: 100;
+    }
+    #slide-counter span { color: var(--accent); }
+    #slide-name {
+      position: fixed; top: 16px; left: 2rem;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); z-index: 100;
+    }
+
+    #stage { width: 100%; height: 100%; position: relative; overflow: hidden; }
+    #track {
+      display: flex; width: 100%; height: 100%;
+      transition: transform 0.65s cubic-bezier(.77,0,.18,1);
+      will-change: transform;
+    }
+
+    .slide {
+      min-width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 5rem 2rem 4rem; position: relative; overflow: hidden;
+    }
+    .slide-inner { max-width: 920px; width: 100%; position: relative; z-index: 2; }
+    .slide-deco { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+
+    .slide-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-lt);
+      border: 1px solid var(--accent-md);
+      padding: 0.3rem 0.85rem; border-radius: 100px; margin-bottom: 1.4rem;
+    }
+    h1, h2 { font-family: 'DM Serif Display', serif; color: var(--text); line-height: 1.1; }
+    h1 { font-size: clamp(2.6rem, 5.5vw, 4.8rem); margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 1.2rem; }
+    h2 em { font-style: italic; color: var(--accent); }
+    p { color: var(--muted); font-size: 1rem; max-width: 580px; }
+    .line { width: 56px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 1.6rem; }
+
+    .btn {
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      padding: 0.75rem 1.8rem; border-radius: 6px;
+      cursor: pointer; transition: all .2s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-solid { background: var(--accent); color: #fff; border: 2px solid var(--accent); box-shadow: 0 4px 16px rgba(67,97,238,0.25); }
+    .btn-solid:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent-md); }
+    .btn-outline:hover { border-color: var(--accent); background: var(--accent-lt); transform: translateY(-2px); }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+    #slide-0 { background: var(--bg); }
+    #slide-0 .slide-deco {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(67,97,238,0.07) 0%, transparent 70%);
+      right: -80px; top: 50%; transform: translateY(-50%);
+    }
+    .hero-name { font-size: clamp(2.8rem, 6vw, 5rem); font-family: 'DM Serif Display', serif; line-height: 1.05; margin-bottom: 0.8rem; }
+    .hero-name span { color: var(--accent); font-style: italic; }
+    .hero-role { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 1rem; }
+    .hero-stats { display: flex; gap: 2.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; }
+    .hero-stat-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    #slide-1 { background: var(--white); }
+    #slide-1 .slide-deco { width: 300px; height: 300px; background: radial-gradient(circle, rgba(67,97,238,0.05) 0%, transparent 70%); left: -60px; bottom: -60px; }
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .sobre-img-box { width: 100%; aspect-ratio: 4/3; background: var(--bg2); border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.75rem; overflow: hidden; position: relative; }
+    .sobre-img-box svg { width: 48px; height: 48px; opacity: 0.2; }
+    .sobre-img-placeholder { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; opacity: 0.6; }
+    .sobre-accent-box { position: absolute; bottom: -16px; right: -16px; background: var(--accent); color: #fff; padding: 0.85rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.85rem; box-shadow: var(--shadow); line-height: 1.3; }
+    .sobre-accent-box span { font-size: 1.5rem; font-family: 'DM Serif Display', serif; display: block; }
+    .sobre-img-wrap { position: relative; }
+    .sobre-text p { margin-bottom: 1rem; }
+    .sobre-text p strong { color: var(--text); }
+
+    #slide-2 { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 0.5rem; }
+    .skill-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.4rem; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .skill-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent-md); }
+    .skill-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .skill-name { font-weight: 600; font-size: 0.88rem; color: var(--text); margin-bottom: 0.25rem; }
+    .skill-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.5; max-width: none; margin-bottom: 0.7rem; }
+    .skill-bar-bg { height: 3px; background: var(--bg3); border-radius: 2px; }
+    .skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; transform-origin: left; animation: grow 1s ease both; }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    #slide-3 { background: var(--white); }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; }
+    .project-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; position: relative; overflow: hidden; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+    .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--accent-md); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-emoji { font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .project-title { font-weight: 600; font-size: 0.92rem; color: var(--text); margin-bottom: 0.35rem; }
+    .project-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; max-width: none; margin-bottom: 0.9rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 0.67rem; font-weight: 600; color: var(--accent); background: var(--accent-lt); border: 1px solid var(--accent-md); padding: 0.2rem 0.55rem; border-radius: 100px; }
+    .project-link { position: absolute; top: 1.1rem; right: 1.1rem; font-size: 0.7rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .project-link:hover { color: var(--accent); }
+
+    #slide-4 { background: var(--bg); }
+    .certs-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .cert-item { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.4rem; display: flex; gap: 0.9rem; align-items: flex-start; transition: border-color .2s, box-shadow .2s; }
+    .cert-item:hover { border-color: var(--accent-md); box-shadow: var(--shadow); }
+    .cert-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+    .cert-issuer { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.2rem; }
+    .cert-name { font-weight: 600; font-size: 0.88rem; color: var(--text); margin-bottom: 0.15rem; }
+    .cert-detail { font-size: 0.76rem; color: var(--muted); }
+    .cert-verify { font-size: 0.7rem; color: var(--muted); text-decoration: none; transition: color .2s; display: inline-block; margin-top: 0.3rem; }
+    .cert-verify:hover { color: var(--accent); }
+
+    #slide-5 { background: var(--white); }
+    #slide-5 .slide-deco { width: 480px; height: 480px; background: radial-gradient(circle, rgba(67,97,238,0.06) 0%, transparent 70%); right: -100px; top: 50%; transform: translateY(-50%); }
+    .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .contact-items { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 0.5rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1.2rem; text-decoration: none; color: var(--text); transition: border-color .2s, box-shadow .2s, transform .2s; }
+    .contact-item:hover { border-color: var(--accent-md); box-shadow: var(--shadow); transform: translateX(4px); }
+    .contact-icon { width: 36px; height: 36px; background: var(--accent-lt); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-icon svg { width: 17px; height: 17px; fill: none; stroke: var(--accent); stroke-width: 2; }
+    .contact-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.1rem; }
+    .contact-value { font-weight: 600; font-size: 0.88rem; color: var(--text); }
+
+    .nav-arrow { position: fixed; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; background: var(--white); border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 50; transition: all .2s; box-shadow: var(--shadow); user-select: none; }
+    .nav-arrow:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 4px 20px rgba(67,97,238,0.3); }
+    .nav-arrow:hover svg { stroke: #fff; }
+    .nav-arrow svg { width: 20px; height: 20px; stroke: var(--muted); stroke-width: 2; fill: none; transition: stroke .2s; }
+    #btn-prev { left: 1.5rem; }
+    #btn-next { right: 1.5rem; }
+    .nav-arrow.hidden { opacity: 0; pointer-events: none; }
+
+    #key-hint { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; opacity: 0.6; pointer-events: none; transition: opacity 0.5s; }
+    #key-hint.hide { opacity: 0; }
+
+    .slide-inner { animation: slideIn 0.5s cubic-bezier(.4,0,.2,1) both; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 768px) {
+      .sobre-grid, .contato-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid, .certs-list { grid-template-columns: 1fr; }
+      .sobre-img-wrap { display: none; }
+    }
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      #btn-prev { left: 0.75rem; }
+      #btn-next { right: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="slide-name">Portfolio</div>
+<div id="slide-counter"><span id="cur">1</span> / <span id="tot">6</span></div>
+
+<!-- LANG TOGGLE -->
+<div id="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('pt')">PT</button>
+</div>
+
+<div id="key-hint" data-en="← → arrow keys to navigate" data-pt="← → setas do teclado para navegar">← → arrow keys to navigate</div>
+
+<div id="stage">
+  <div id="track">
+
+    <!-- SLIDE 1 — HERO -->
+    <div class="slide" id="slide-0" data-name-en="Home" data-name-pt="Início">
+      <div class="slide-deco"></div>
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Data Analysis · Data Analyst" data-pt="Análise de Dados · Data Analyst">Data Analysis · Data Analyst</div>
+        <h1 class="hero-name">
+          <span data-en="Hi, I'm" data-pt="Olá, sou">Hi, I'm</span><br>
+          <span style="color:var(--accent);font-style:italic;">Stefania</span> Guedes.
+        </h1>
+        <p class="hero-role">Computer Science · SQL · Python · Power BI · Tableau</p>
+        <div class="line"></div>
+        <p data-en="I turn data into decisions — with focus on clear visualization, interactive dashboards and storytelling that supports decision-making." data-pt="Transformo dados em decisões — com foco em visualização clara, dashboards interativos e storytelling que apoia a tomada de decisão.">
+          I turn data into decisions — with focus on clear visualization, interactive dashboards and storytelling that supports decision-making.
+        </p>
+        <div class="hero-cta">
+          <a href="#" class="btn btn-solid" onclick="goTo(3); return false;" data-en="View Projects" data-pt="Ver Projetos">View Projects</a>
+          <a href="#" class="btn btn-outline" onclick="goTo(5); return false;" data-en="Contact" data-pt="Contato">Contact</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">4+</div>
+            <div class="hero-stat-label" data-en="Certifications" data-pt="Certificações">Certifications</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">1+</div>
+            <div class="hero-stat-label" data-en="Project Delivered" data-pt="Projeto Entregue">Project Delivered</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">360h+</div>
+            <div class="hero-stat-label" data-en="Study Hours" data-pt="Horas de Estudo">Study Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 — ABOUT -->
+    <div class="slide" id="slide-1" data-name-en="About" data-name-pt="Sobre Mim">
+      <div class="slide-deco"></div>
+      <div class="slide-inner">
+        <div class="sobre-grid">
+          <div class="sobre-text">
+            <div class="slide-tag" data-en="About Me" data-pt="Sobre Mim">About Me</div>
+            <h2><span data-en="Who am " data-pt="Quem sou ">Who am </span><em data-en="I?" data-pt="eu?">I?</em></h2>
+            <div class="line"></div>
+            <p data-en="I'm <strong>Stefania Silva Guedes</strong>, a <strong>Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong>SQL/MySQL</strong> for queries and relational database management, and use <strong>Python</strong> for data processing and automation."
+               data-pt="Sou <strong>Stefania Silva Guedes</strong>, estudante de <strong>Ciência da Computação</strong> na UNIP com foco em Análise de Dados. Tenho habilidades técnicas com <strong>SQL/MySQL</strong> para consultas e manipulação de bases relacionais, e uso <strong>Python</strong> para tratamento e automação de dados.">
+              I'm <strong>Stefania Silva Guedes</strong>, a <strong>Computer Science</strong> student at UNIP focused on Data Analysis. I have technical skills in <strong>SQL/MySQL</strong> for queries and relational database management, and use <strong>Python</strong> for data processing and automation.
+            </p>
+            <p data-en="I enjoy creating <strong>dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong>Git and GitHub</strong>."
+               data-pt="Gosto de criar <strong>dashboards</strong> que ajudem a visualizar informações de forma clara e útil, e mantenho boas práticas de documentação e versionamento com <strong>Git e GitHub</strong>.">
+              I enjoy creating <strong>dashboards</strong> that help visualize information clearly and usefully, and maintain good documentation and versioning practices with <strong>Git and GitHub</strong>.
+            </p>
+            <p data-en="Based in <strong>Franca – SP, Brazil</strong>." data-pt="Localizada em <strong>Franca – SP</strong>.">Based in <strong>Franca – SP, Brazil</strong>.</p>
+          </div>
+          <div class="sobre-img-wrap">
+            <div class="sobre-img-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#4361EE" stroke-width="1">
+                <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+              </svg>
+              <span class="sobre-img-placeholder">← Add your photo here</span>
+            </div>
+            <div class="sobre-accent-box">
+              <span>360h+</span><span data-en="in data courses" data-pt="em cursos de dados">in data courses</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 — SKILLS -->
+    <div class="slide" id="slide-2" data-name-en="Skills" data-name-pt="Habilidades">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Tech Stack" data-pt="Stack Técnica">Tech Stack</div>
+        <h2><span data-en="My " data-pt="Minhas ">My </span><em data-en="skills" data-pt="habilidades">skills</em></h2>
+        <div class="line"></div>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">🗄️</div>
+            <div class="skill-name">SQL · MySQL</div>
+            <div class="skill-desc" data-en="JOINs, Subqueries, Views, Aggregation Functions, Data Cleaning and report generation" data-pt="JOINs, Subqueries, Views, Funções de Agregação, Data Cleaning e geração de relatórios">JOINs, Subqueries, Views, Aggregation Functions, Data Cleaning and report generation</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🐍</div>
+            <div class="skill-name">Python</div>
+            <div class="skill-desc" data-en="Pandas, openpyxl — data processing, cleaning, manipulation and automation" data-pt="Pandas, openpyxl — tratamento, limpeza, manipulação e automação de dados">Pandas, openpyxl — data processing, cleaning, manipulation and automation</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">📊</div>
+            <div class="skill-name">Power BI</div>
+            <div class="skill-desc" data-en="Interactive dashboards, DAX measures, ETL with Power Query, KPIs and management reports" data-pt="Dashboards interativos, medidas DAX, ETL com Power Query, KPIs e relatórios gerenciais">Interactive dashboards, DAX measures, ETL with Power Query, KPIs and management reports</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">📈</div>
+            <div class="skill-name">Tableau</div>
+            <div class="skill-desc" data-en="Data visualization, interactive dashboards and data storytelling" data-pt="Visualização de dados, dashboards interativos e storytelling com dados">Data visualization, interactive dashboards and data storytelling</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">📋</div>
+            <div class="skill-name">Excel</div>
+            <div class="skill-desc" data-en="Pivot tables, advanced formulas, data cleaning and automation" data-pt="Tabelas dinâmicas, fórmulas avançadas, limpeza de dados e automação">Pivot tables, advanced formulas, data cleaning and automation</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🔀</div>
+            <div class="skill-name">Git & GitHub</div>
+            <div class="skill-desc" data-en="Code versioning, repository organization and documentation" data-pt="Versionamento de código, organização e documentação de repositórios">Code versioning, repository organization and documentation</div>
+            <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:72%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 — PROJECTS -->
+    <div class="slide" id="slide-3" data-name-en="Projects" data-name-pt="Projetos">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Portfolio" data-pt="Portfólio">Portfolio</div>
+        <h2><span data-en="Featured " data-pt="Projetos em ">Featured </span><em data-en="projects" data-pt="destaque">projects</em></h2>
+        <div class="line"></div>
+        <div class="projects-grid">
+          <div class="project-card">
+            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">💻</div>
+            <div class="project-title" data-en="IT Department Cost Dashboard" data-pt="Dashboard de Custos do Setor de TI">IT Department Cost Dashboard</div>
+            <div class="project-desc"
+              data-en="Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization before visualization."
+              data-pt="Dashboard interativo em Power BI para análise dos custos operacionais de um departamento de TI — materiais, licenças, profissionais e manutenção. Inclui pipeline de dados em Python com Pandas para limpeza, validação e padronização antes da visualização.">
+              Interactive Power BI dashboard for analyzing operational costs of an IT department — materials, licenses, professionals and maintenance. Includes a Python data pipeline with Pandas for cleaning, validation and standardization before visualization.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">DAX</span>
+              <span class="tag">ETL</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_SQL" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">🗃️</div>
+            <div class="project-title" data-en="Data Analysis with SQL" data-pt="Análise de Dados com SQL">Data Analysis with SQL</div>
+            <div class="project-desc"
+              data-en="Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases."
+              data-pt="Consultas avançadas em MySQL com JOINs, Subqueries e Views para extração, limpeza e geração de relatórios a partir de bases relacionais.">
+              Advanced MySQL queries with JOINs, Subqueries and Views for data extraction, cleaning and report generation from relational databases.
+            </div>
+            <div class="project-tags">
+              <span class="tag">SQL</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Data Cleaning</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_PYTHON" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">🐍</div>
+            <div class="project-title" data-en="Data Processing & Automation · Python" data-pt="Automação e Tratamento de Dados · Python">Data Processing & Automation · Python</div>
+            <div class="project-desc"
+              data-en="Python scripts with Pandas and NumPy for data cleaning, transformation and automation of data analysis routines."
+              data-pt="Scripts em Python com Pandas e NumPy para limpeza, transformação e automação de rotinas de análise de dados.">
+              Python scripts with Pandas and NumPy for data cleaning, transformation and automation of data analysis routines.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">NumPy</span>
+            </div>
+          </div>
+          <div class="project-card">
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_TABLEAU" target="_blank" class="project-link">GitHub ↗</a>
+            <div class="project-emoji">📊</div>
+            <div class="project-title" data-en="Analytics Dashboard · Tableau" data-pt="Dashboard de Análise · Tableau">Analytics Dashboard · Tableau</div>
+            <div class="project-desc"
+              data-en="Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making."
+              data-pt="Visualização interativa de dados em Tableau com análise estatística e storytelling para suporte à tomada de decisão.">
+              Interactive data visualization in Tableau with statistical analysis and storytelling to support decision-making.
+            </div>
+            <div class="project-tags">
+              <span class="tag">Tableau</span>
+              <span class="tag">Visualization</span>
+              <span class="tag">Storytelling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 — CERTIFICATIONS -->
+    <div class="slide" id="slide-4" data-name-en="Certifications" data-name-pt="Certificações">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Education" data-pt="Formação">Education</div>
+        <h2><span data-en="Certifications &amp; " data-pt="Certificações &amp; ">Certifications &amp; </span><em data-en="Courses" data-pt="Cursos">Courses</em></h2>
+        <div class="line"></div>
+        <div class="certs-list">
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">Cisco Networking Academy</div>
+              <div class="cert-name">Data Analytics Essentials</div>
+              <div class="cert-detail">Excel · SQL · Tableau · Statistical Analysis</div>
+              <a href="SEU_LINK_VERIFICACAO_CISCO_DATA" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">Microsoft · Power BI</div>
+              <div class="cert-name" data-en="Advanced Excel & Power BI" data-pt="Excel Avançado & Power BI">Advanced Excel & Power BI</div>
+              <div class="cert-detail">Dashboards · DAX · Power Query · ETL · KPIs</div>
+              <a href="SEU_LINK_VERIFICACAO_POWERBI" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">Curso em Vídeo · Prof. Guanabara</div>
+              <div class="cert-name">Python 3 (Worlds 1–4)</div>
+              <div class="cert-detail" data-en="160 hours · Logic, data structures, automation" data-pt="160 horas · Lógica, estruturas de dados, automação">160 hours · Logic, data structures, automation</div>
+              <a href="SEU_LINK_VERIFICACAO_PYTHON" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">Udemy / Alura</div>
+              <div class="cert-name" data-en="SQL for Data Analysis · MySQL" data-pt="SQL para Análise de Dados · MySQL">SQL for Data Analysis · MySQL</div>
+              <div class="cert-detail">JOINs · Subqueries · Views · Aggregation Functions</div>
+              <a href="SEU_LINK_VERIFICACAO_SQL" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">UNIP</div>
+              <div class="cert-name" data-en="Computer Science" data-pt="Ciência da Computação">Computer Science</div>
+              <div class="cert-detail" data-en="Undergraduate · In progress · Franca – SP" data-pt="Graduação em andamento · Franca – SP">Undergraduate · In progress · Franca – SP</div>
+              <a href="#" class="cert-verify" style="pointer-events:none; opacity:0.4;" data-en="In progress" data-pt="Em andamento">In progress</a>
+            </div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div>
+              <div class="cert-issuer">Curso em Vídeo · DIO</div>
+              <div class="cert-name">Git & GitHub</div>
+              <div class="cert-detail" data-en="Versioning, organization and repository documentation" data-pt="Versionamento, organização e documentação de repositórios">Versioning, organization and repository documentation</div>
+              <a href="SEU_LINK_VERIFICACAO_GIT" target="_blank" class="cert-verify" data-en="Verify credential ↗" data-pt="Verificar credencial ↗">Verify credential ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 — CONTACT -->
+    <div class="slide" id="slide-5" data-name-en="Contact" data-name-pt="Contato">
+      <div class="slide-deco"></div>
+      <div class="slide-inner">
+        <div class="contato-grid">
+          <div>
+            <div class="slide-tag" data-en="Contact" data-pt="Contato">Contact</div>
+            <h2><span data-en="Let's " data-pt="Vamos ">Let's </span><em data-en="work together?" data-pt="trabalhar juntos?">work together?</em></h2>
+            <div class="line"></div>
+            <p data-en="Available for internships, junior opportunities and data analysis projects. I'll respond within 24 hours!" data-pt="Disponível para estágios, oportunidades júnior e projetos em análise de dados. Responderei em até 24 horas!">
+              Available for internships, junior opportunities and data analysis projects. I'll respond within 24 hours!
+            </p>
+          </div>
+          <div class="contact-items">
+            <a href="mailto:stefaniasilva0000@gmail.com" class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
+              <div>
+                <div class="contact-label">E-mail</div>
+                <div class="contact-value">stefaniasilva0000@gmail.com</div>
+              </div>
+            </a>
+            <a href="https://www.linkedin.com/in/stefania-silva-aa84983a5" target="_blank" class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4V9h4v1.5"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+              <div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">stefania-silva-aa84983a5</div>
+              </div>
+            </a>
+            <a href="https://github.com/Stefaniasgs" target="_blank" class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div>
+              <div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">github.com/Stefaniasgs</div>
+              </div>
+            </a>
+            <a href="tel:+5516992877786" class="contact-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.13 1 .37 1.97.71 2.91a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.17-1.17a2 2 0 012.11-.45c.94.34 1.91.58 2.91.71A2 2 0 0122 14.92v2z"/></svg></div>
+              <div>
+                <div class="contact-label" data-en="Phone" data-pt="Telefone">Phone</div>
+                <div class="contact-value">(16) 99287-7786</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<button class="nav-arrow hidden" id="btn-prev" aria-label="Previous slide">
+  <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+</button>
+<button class="nav-arrow" id="btn-next" aria-label="Next slide">
+  <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+</button>
+
+<script>
+  const slides  = document.querySelectorAll('.slide');
+  const track   = document.getElementById('track');
+  const bar     = document.getElementById('progress-bar');
+  const curEl   = document.getElementById('cur');
+  const totEl   = document.getElementById('tot');
+  const nameEl  = document.getElementById('slide-name');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const keyHint = document.getElementById('key-hint');
+  const total   = slides.length;
+  let current   = 0;
+  let hintHidden = false;
+  let currentLang = 'en';
+
+  totEl.textContent = total;
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const val = el.getAttribute('data-' + lang);
+      if (val) el.innerHTML = val;
+    });
+    nameEl.textContent = slides[current].getAttribute('data-name-' + lang) || 'Portfolio';
+    keyHint.textContent = keyHint.getAttribute('data-' + lang);
+  }
+
+  function goTo(n) {
+    current = Math.max(0, Math.min(n, total - 1));
+    track.style.transform = `translateX(-${current * 100}%)`;
+    bar.style.width = `${((current + 1) / total) * 100}%`;
+    curEl.textContent = current + 1;
+    nameEl.textContent = slides[current].getAttribute('data-name-' + currentLang) || 'Portfolio';
+    btnPrev.classList.toggle('hidden', current === 0);
+    btnNext.classList.toggle('hidden', current === total - 1);
+    const inner = slides[current].querySelector('.slide-inner');
+    if (inner) { inner.style.animation = 'none'; inner.offsetHeight; inner.style.animation = ''; }
+    if (!hintHidden) { keyHint.classList.add('hide'); hintHidden = true; }
+  }
+
+  setLang('en');
+  goTo(0);
+  btnPrev.classList.add('hidden');
+  setTimeout(() => { if (!hintHidden) { keyHint.classList.add('hide'); hintHidden = true; } }, 4000);
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  }, { passive: true });
+</script>
+</body>
+</html>
