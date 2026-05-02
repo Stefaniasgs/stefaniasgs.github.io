@@ -194,7 +194,7 @@
 
 <div id="progress-bar"></div>
 <div id="slide-name">Portfolio</div>
-<div id="slide-counter"><span id="cur">1</span> / <span id="tot">9</span></div>
+<div id="slide-counter"><span id="cur">1</span> / <span id="tot">10</span></div>
 <div id="lang-toggle">
   <button class="lang-btn active" onclick="setLang('en')">EN</button>
   <button class="lang-btn" onclick="setLang('pt')">PT</button>
@@ -520,8 +520,51 @@
       </div>
     </div>
 
+    <!-- SLIDE 8 — EDA SECURITY LOGS SCRIPT -->
+    <div class="slide" id="slide-7" data-name-en="EDA Script" data-name-pt="Script EDA">
+      <div class="slide-inner">
+        <div class="slide-tag" data-en="Data Pipeline · Python" data-pt="Pipeline de Dados · Python">Data Pipeline · Python</div>
+        <h2><em data-en="Data Cleaning" data-pt="Limpeza de Dados">Data Cleaning</em> <span data-en="· EDA Security Logs" data-pt="· EDA Security Logs">· EDA Security Logs</span></h2>
+        <div class="line"></div>
+        <div class="script-layout">
+          <div class="script-imgs">
+            <div class="code-img-wrap">
+              <div class="code-img-label">Data Cleaning · Missing Values &amp; Derived Columns</div>
+              <img src="imagens/script_eda_1.png" alt="Script EDA - Data Cleaning" class="code-img"/>
+            </div>
+          </div>
+          <div class="script-desc">
+            <div class="script-title" data-en="Data Cleaning Pipeline · Python" data-pt="Pipeline de Limpeza de Dados · Python">Data Cleaning Pipeline · Python</div>
+            <p class="script-text"
+               data-en="Python script responsible for the full data cleaning pipeline of the IT Cost Dashboard project. Loads a raw Excel file, checks for null values, corrects data types (dates, integers and decimals), standardizes text fields, validates financial values, removes duplicate records and exports a clean, analysis-ready file."
+               data-pt="Script Python responsável pelo pipeline completo de limpeza de dados do projeto Dashboard de Custos de TI. Carrega um arquivo Excel bruto, verifica valores nulos, corrige tipos de dados (datas, inteiros e decimais), padroniza campos de texto, valida valores financeiros, remove registros duplicados e exporta um arquivo limpo e pronto para análise.">
+              Python script responsible for the full data cleaning pipeline of the IT Cost Dashboard project. Loads a raw Excel file, checks for null values, corrects data types (dates, integers and decimals), standardizes text fields, validates financial values, removes duplicate records and exports a clean, analysis-ready file.
+            </p>
+            <p class="script-text"
+               data-en="Each step is logged to the terminal, making the pipeline transparent and easy to audit. A final summary displays total records, date range, total spend and a breakdown by category."
+               data-pt="Cada etapa é registrada no terminal, tornando o pipeline transparente e fácil de auditar. Um resumo final exibe o total de registros, o período, o total gasto e um detalhamento por categoria.">
+              Each step is logged to the terminal, making the pipeline transparent and easy to audit. A final summary displays total records, date range, total spend and a breakdown by category.
+            </p>
+            <div class="pipeline-steps">
+              <div class="pipeline-step"><span class="step-num">01</span><span class="step-label" data-en="Load raw Excel &amp; report nulls" data-pt="Carregar Excel bruto e reportar nulos">Load raw Excel &amp; report nulls</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">02</span><span class="step-label" data-en="Fill missing values &amp; fix data types" data-pt="Preencher nulos e corrigir tipos">Fill missing values &amp; fix data types</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">03</span><span class="step-label" data-en="Add derived time columns" data-pt="Adicionar colunas de tempo derivadas">Add derived time columns</span></div>
+              <div class="pipeline-arrow">↓</div>
+              <div class="pipeline-step"><span class="step-num">04</span><span class="step-label" data-en="Map severity to numeric &amp; export" data-pt="Mapear severidade e exportar">Map severity to numeric &amp; export</span></div>
+            </div>
+            <div class="dashboard-tags" style="margin-top:1rem;">
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Excel·XLSX</span><span class="tag">Data Cleaning</span><span class="tag">EDA</span><span class="tag">Security Logs</span>
+            </div>
+            <a href="https://github.com/Stefaniasgs/SEU_REPO_EDA" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- SLIDE 8 — HTML REPORT GENERATOR -->
-    <div class="slide" id="slide-7" data-name-en="Report Generator" data-name-pt="Gerador de Relatório">
+    <div class="slide" id="slide-8" data-name-en="Report Generator" data-name-pt="Gerador de Relatório">
       <div class="slide-inner">
         <div class="slide-tag" data-en="Project · Python" data-pt="Projeto · Python">Project · Python</div>
         <h2><em data-en="HTML Report" data-pt="Relatório HTML">HTML Report</em> <span data-en="Generator" data-pt="Gerador">Generator</span></h2>
@@ -563,7 +606,7 @@
     </div>
 
     <!-- SLIDE 9 — CONTACT -->
-    <div class="slide" id="slide-8" data-name-en="Contact" data-name-pt="Contato">
+    <div class="slide" id="slide-9" data-name-en="Contact" data-name-pt="Contato">
       <div class="slide-deco"></div>
       <div class="slide-inner">
         <div class="contato-grid">
