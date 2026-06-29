@@ -221,7 +221,7 @@
         </p>
         <div class="hero-cta">
           <a href="#" class="btn btn-solid" onclick="goTo(4); return false;" data-en="View Projects" data-pt="Ver Projetos">View Projects</a>
-          <a href="#" class="btn btn-outline" onclick="goTo(8); return false;" data-en="Contact" data-pt="Contato">Contact</a>
+          <a href="#" class="btn btn-outline" onclick="goTo(9); return false;" data-en="Contact" data-pt="Contato">Contact</a>
         </div>
         <div class="hero-stats">
           <div>
@@ -468,8 +468,6 @@
             <div class="dashboard-tags">
               <span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">DAX</span><span class="tag">ETL</span><span class="tag">KPIs</span><span class="tag">Data Pipeline</span>
             </div>
-            <!-- ← Troque pelo link do repositório -->
-            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
           </div>
         </div>
       </div>
@@ -513,7 +511,7 @@
               <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Excel·XLSX</span><span class="tag">Data Cleaning</span><span class="tag">ETL</span>
             </div>
             <!-- ← Troque pelo link do repositório -->
-            <a href="https://github.com/Stefaniasgs/dashboard-custos-ti" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+            <a href="https://github.com/Stefaniasgs/it-cost-dashboard" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
           </div>
         </div>
       </div>
@@ -523,40 +521,40 @@
     <div class="slide" id="slide-7" data-name-en="EDA Script" data-name-pt="Script EDA">
       <div class="slide-inner">
         <div class="slide-tag" data-en="Data Pipeline · Python" data-pt="Pipeline de Dados · Python">Data Pipeline · Python</div>
-        <h2><em data-en="Data Cleaning" data-pt="Limpeza de Dados">Data Cleaning</em> <span data-en="· EDA Security Logs" data-pt="· EDA Security Logs">· EDA Security Logs</span></h2>
+        <h2><em data-en="Security Log" data-pt="Security Log">Security Log</em> <span data-en="EDA Pipeline" data-pt="EDA Pipeline">EDA Pipeline</span></h2>
         <div class="line"></div>
         <div class="script-layout">
           <div class="script-imgs">
             <div class="code-img-wrap">
-              <div class="code-img-label">Data Cleaning · Missing Values &amp; Derived Columns</div>
-              <img src="imagens/script_eda_1.png" alt="Script EDA - Data Cleaning" class="code-img"/>
+              <div class="code-img-label">Event Types, Severity Map &amp; Synthetic Data Config</div>
+              <img src="imagens/script_eda_1.png" alt="Script EDA - Configuração de dados sintéticos" class="code-img"/>
             </div>
           </div>
           <div class="script-desc">
-            <div class="script-title" data-en="Data Cleaning Pipeline · Python" data-pt="Pipeline de Limpeza de Dados · Python">Data Cleaning Pipeline · Python</div>
+            <div class="script-title" data-en="Security Log EDA Pipeline" data-pt="Pipeline de EDA de Logs de Segurança">Security Log EDA Pipeline</div>
             <p class="script-text"
-               data-en="Python script responsible for the full data cleaning pipeline of the IT Cost Dashboard project. Loads a raw Excel file, checks for null values, corrects data types (dates, integers and decimals), standardizes text fields, validates financial values, removes duplicate records and exports a clean, analysis-ready file."
-               data-pt="Script Python responsável pelo pipeline completo de limpeza de dados do projeto Dashboard de Custos de TI. Carrega um arquivo Excel bruto, verifica valores nulos, corrige tipos de dados (datas, inteiros e decimais), padroniza campos de texto, valida valores financeiros, remove registros duplicados e exporta um arquivo limpo e pronto para análise.">
-              Python script responsible for the full data cleaning pipeline of the IT Cost Dashboard project. Loads a raw Excel file, checks for null values, corrects data types (dates, integers and decimals), standardizes text fields, validates financial values, removes duplicate records and exports a clean, analysis-ready file.
+               data-en="Exploratory data analysis pipeline in Python (Pandas, Seaborn, Matplotlib) for synthetic security logs. Covers data cleaning with null handling, descriptive statistics, and a visual dashboard with 4 panels: event distribution, severity, temporal attack pattern and geographic origin."
+               data-pt="Pipeline de análise exploratória em Python (Pandas, Seaborn, Matplotlib) para logs de segurança sintéticos: limpeza de dados com tratamento de nulos, estatísticas descritivas e dashboard visual com 4 painéis (distribuição de eventos, severidade, padrão temporal de ataques e origem geográfica).">
+              Exploratory data analysis pipeline in Python (Pandas, Seaborn, Matplotlib) for synthetic security logs. Covers data cleaning with null handling, descriptive statistics, and a visual dashboard with 4 panels: event distribution, severity, temporal attack pattern and geographic origin.
             </p>
             <p class="script-text"
-               data-en="Each step is logged to the terminal, making the pipeline transparent and easy to audit. A final summary displays total records, date range, total spend and a breakdown by category."
-               data-pt="Cada etapa é registrada no terminal, tornando o pipeline transparente e fácil de auditar. Um resumo final exibe o total de registros, o período, o total gasto e um detalhamento por categoria.">
-              Each step is logged to the terminal, making the pipeline transparent and easy to audit. A final summary displays total records, date range, total spend and a breakdown by category.
+               data-en="Synthetic data is generated with realistic event types and severity weighting, then cleaned and enriched before being summarized into the 4-panel visual dashboard."
+               data-pt="Os dados sintéticos são gerados com tipos de evento e pesos de severidade realistas, depois limpos e enriquecidos antes de serem resumidos no dashboard visual de 4 painéis.">
+              Synthetic data is generated with realistic event types and severity weighting, then cleaned and enriched before being summarized into the 4-panel visual dashboard.
             </p>
             <div class="pipeline-steps">
-              <div class="pipeline-step"><span class="step-num">01</span><span class="step-label" data-en="Load raw Excel &amp; report nulls" data-pt="Carregar Excel bruto e reportar nulos">Load raw Excel &amp; report nulls</span></div>
+              <div class="pipeline-step"><span class="step-num">01</span><span class="step-label" data-en="Generate synthetic event logs" data-pt="Gerar logs de eventos sintéticos">Generate synthetic event logs</span></div>
               <div class="pipeline-arrow">↓</div>
-              <div class="pipeline-step"><span class="step-num">02</span><span class="step-label" data-en="Fill missing values &amp; fix data types" data-pt="Preencher nulos e corrigir tipos">Fill missing values &amp; fix data types</span></div>
+              <div class="pipeline-step"><span class="step-num">02</span><span class="step-label" data-en="Clean data &amp; handle nulls" data-pt="Limpar dados e tratar nulos">Clean data &amp; handle nulls</span></div>
               <div class="pipeline-arrow">↓</div>
-              <div class="pipeline-step"><span class="step-num">03</span><span class="step-label" data-en="Add derived time columns" data-pt="Adicionar colunas de tempo derivadas">Add derived time columns</span></div>
+              <div class="pipeline-step"><span class="step-num">03</span><span class="step-label" data-en="Compute descriptive statistics" data-pt="Calcular estatísticas descritivas">Compute descriptive statistics</span></div>
               <div class="pipeline-arrow">↓</div>
-              <div class="pipeline-step"><span class="step-num">04</span><span class="step-label" data-en="Map severity to numeric &amp; export" data-pt="Mapear severidade e exportar">Map severity to numeric &amp; export</span></div>
+              <div class="pipeline-step"><span class="step-num">04</span><span class="step-label" data-en="Build 4-panel visual dashboard" data-pt="Montar dashboard visual de 4 painéis">Build 4-panel visual dashboard</span></div>
             </div>
             <div class="dashboard-tags" style="margin-top:1rem;">
-              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Excel·XLSX</span><span class="tag">Data Cleaning</span><span class="tag">EDA</span><span class="tag">Security Logs</span>
+              <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Seaborn</span><span class="tag">Matplotlib</span><span class="tag">EDA</span><span class="tag">Security Logs</span>
             </div>
-            <a href="https://github.com/Stefaniasgs/SEU_REPO_EDA" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+            <a href="https://github.com/Stefaniasgs/security-logs-eda" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
           </div>
         </div>
       </div>
@@ -598,7 +596,7 @@
               <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">HTML·CSS</span><span class="tag">SOC·KPIs</span><span class="tag">Zero Dependencies</span>
             </div>
             <!-- ← Troque pelo link do repositório quando publicar -->
-            <a href="https://github.com/Stefaniasgs/SEU_REPO_REPORT_GENERATOR" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
+            <a href="https://github.com/Stefaniasgs/security-report-generator" target="_blank" class="btn btn-solid" style="margin-top:1.5rem;" data-en="View on GitHub ↗" data-pt="Ver no GitHub ↗">View on GitHub ↗</a>
           </div>
         </div>
       </div>
